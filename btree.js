@@ -71,6 +71,7 @@ leaf.prototype.isLeaf = function () { return true; };
 
 leaf.prototype.getItem = function (key, near) {
 	var vals = this.keyval;
+	console.log(vals)
 	if (near) {
 		for (var i = 0, len = vals.length; i < len; i++) {
 			if (key <= vals[i]) return i;
@@ -178,7 +179,7 @@ node.prototype.isLeaf = function () { return false; };
 node.prototype.getItem = function (key) {
 	var vals = this.keyval;
 	for (var i = 0, len = vals.length; i < len; i++) {
-		if (key < vals[i]) return i;
+		if (key <= vals[i]) return i;
 	}
 	return vals.length;
 };
@@ -530,6 +531,7 @@ tree.prototype._del = function (key) {
 		parPtr = this.leaf.getItem(key);
 		this.leaf = this.leaf.nodptr[parPtr];
 	}
+
 	this.item = this.leaf.getItem(key, false);
 
 	// Key not in tree
